@@ -39,15 +39,15 @@ def sort(a, lo, hi, d):
 
 def insertion_sort(a, lo, hi, d):
     for i in range(lo, hi+1):
-		j = i
-		while j > lo:
-			if a[j][d:] < a[j-1][d:]:
-				tmp = a[j]
-				a[j] = a[j-1]
-				a[j-1] = tmp
-				j -= 1
-			else:
-				break
+        j = i
+        while j > lo:
+            if a[j][d:] < a[j-1][d:]:
+                tmp = a[j]
+                a[j] = a[j-1]
+                a[j-1] = tmp
+                j -= 1
+            else:
+                break
 
 
 
