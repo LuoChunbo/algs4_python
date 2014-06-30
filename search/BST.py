@@ -10,18 +10,20 @@ class Node:
         self.right = None;
 
 
-def size():
-    return size(root);
+root = None;
 
+"""def size():
+        return size(root);
+"""
 def size(x):
     if not x:
         return 0;
-    
+
     return x.N;
 
-def get(key):
+"""def get(key):
     return get(root, key);
-
+"""
 def get(x, key):
     if not x:
         return None;
@@ -33,9 +35,10 @@ def get(x, key):
     else:
         return x.val;
 
-def put(key, val):
-    root = put(root, key, val)
 
+"""def put(key, val):
+    root = put(root, key, val)
+"""
 def put(x, key, val):
     if not x:
         return Node(key, val, 1);
@@ -46,7 +49,8 @@ def put(x, key, val):
         x.right = put(x.right, key, val);
     else:
         x.val = val;
-        x.N = size(x.left) + size(x.right) + 1;
+    
+    x.N = size(x.left) + size(x.right) + 1;
 
     return x;
 
@@ -193,6 +197,64 @@ def delete(x, key):
     x. N = size(x.left) + size(x.right) + 1;
 
     return x;
+
+def contains(key):
+    return get(root, key) != None
+
+def iterator_node(x):
+    if not x:
+        return;
+    iterator_node(x.left);
+    print("key = ", x.key , "value = ", x.val);
+    iterator_node(x.right)
+
+max_key=""
+max_val=0
+
+def find_max_node(x):
+    if not x:
+        return;
+
+    global max_key;
+    global max_val;
+
+    find_max_node(x.left);
+    find_max_node(x.right);
+    if x.val > max_val:
+        max_val = x.val;
+        max_key = x.key;
+
+
+if __name__ == "__main__":
+
+    minlen = 8;
+    global root;
+    #f = open("tinyTale.txt");
+    #f = open("tale.txt");
+    f = open("leipzig1M.txt");
+
+    words = 0;
+    for line in f:
+        for word in line.rstrip().split():
+            words += len(word);
+            if len(word) < minlen:
+                continue;
+            #print(word)
+            if not contains(word):
+                root = put(root, word, 1);
+            else:
+                root = put(root, word, get(root, word) + 1);
+    f.close()
+
+    #iterator_node(root)
+
+    find_max_node(root)
+
+    print("all words = ", words);
+
+    print("max node key: ", max_key, "max node val :", max_val);
+
+    print("word size: ", root.N);
 
 
 
